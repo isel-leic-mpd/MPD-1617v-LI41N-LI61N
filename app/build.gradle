@@ -23,6 +23,7 @@ dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     compile 'com.google.guava:guava:20.0'
     compile project (':aula2017-03-03')
+    compile project (':weather-api')
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
