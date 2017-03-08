@@ -8,5 +8,8 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+
+        Library library = new Library();
+        System.out.println(library.someLibraryMethod());
     }
 }
