@@ -18,7 +18,6 @@ include 'services:webservice'
 rootProject.name = 'mpd'
 include 'app'
 include 'aula2017-03-03'
-include 'aula2017-03-08-weather-api'
-include 'aula2017-03-08_'
+include 'weather-api'
 
 
