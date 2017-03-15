@@ -1,26 +1,25 @@
+/*
+ * Copyright (c) 2017, Luís Falcão
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package util;
 
-import java.io.*;
-import java.util.ArrayList;
-
 /**
- * Created by lfalcao on 10/03/2017.
+ * Interface that represent the request to a path content.
  */
-public abstract class Request implements IRequest {
-
-    protected void processStream(String path, ArrayList<String> res) {
-        try(InputStream in = ClassLoader.getSystemResource(path).openStream()) {
-            /*
-             * Consumir o Inputstream e adicionar dados ao res
-             */
-            try(BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    res.add(line);
-                }
-            }
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
+public interface Request {
+    Iterable<String> getContent(String path);
 }

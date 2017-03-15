@@ -16,7 +16,7 @@
  */
 
 import util.FileRequest;
-import util.IRequest;
+import util.Request;
 import weather.WeatherWebApi;
 import weather.model.HourlyInfo;
 
@@ -30,8 +30,10 @@ import static java.lang.System.out;
  */
 public class App {
     public static void main(String[] args) {
-        IRequest req = new FileRequest(); // new HttpRequest();
+        Request req = new FileRequest(); // new HttpRequest();
+
         WeatherWebApi api = new WeatherWebApi(req);
+
         Iterable<HourlyInfo> infos = api.pastWeather(41.15, -8.6167, LocalDate.of(2017,02,01),LocalDate.of(2017,02,28));
         infos.forEach(out::println);
         /* <=>

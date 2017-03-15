@@ -17,13 +17,12 @@
 
 package util;
 
-import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Instances of this class represent a request
+ * Instances of this class represent a request to an Uri, served by a file in the file system
  */
-public class FileRequest extends Request {
+public class FileRequest extends RequestImplBase {
     @Override
     public Iterable<String> getContent(String path) {
         String[] parts = path.split("/");

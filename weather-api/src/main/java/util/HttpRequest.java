@@ -23,10 +23,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Instances of this class represent a request to an Uri, making an HTTP RequestImplBase
  * @author Luís Falcão
  *         created on 08-03-2017
  */
-public class HttpRequest implements IRequest {
+public class HttpRequest implements Request {
     @Override
     public Iterable<String> getContent(String path) {
         List<String> res = new ArrayList<>();

@@ -17,7 +17,8 @@
 
 package weather;
 
-import util.IRequest;
+import com.sun.istack.internal.NotNull;
+import util.Request;
 import weather.model.HourlyInfo;
 import weather.model.Location;
 
@@ -27,6 +28,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Luís Falcão
@@ -57,11 +59,14 @@ public class WeatherWebApi {
         }
     }
 
-    private final IRequest req;
+    private final Request req;
 
-    public WeatherWebApi(IRequest req) {
+    public WeatherWebApi(@NotNull Request req) {
+        Objects.requireNonNull(req, "You must provide a non null Request");
+
         this.req = req;
     }
+
 
     /**
      * E.g. http://api.worldweatheronline.com/free/v2/search.ashx?query=oporto&format=tab&key=*****
