@@ -34,7 +34,12 @@ public class WeatherQueriesTest {
         // Arrange
 
         // Act
-        final Collection<String> filteredSunnyDays = weatherQueries.filterHourlyInfo(hourlyInfos.iterator(), new SunnyDaysPredicate());
+        final Collection<String> filteredSunnyDays = weatherQueries.filterHourlyInfo(hourlyInfos.iterator(), new Predicate<HourlyInfo>() {
+            @Override
+            public boolean test(HourlyInfo hourlyInfo) {
+                return "Sunny".equals(hourlyInfo.getDescription());
+            }
+        });
 
         // Assert
         assertEquals(1, filteredSunnyDays.size());
@@ -42,10 +47,23 @@ public class WeatherQueriesTest {
 
     }
 
-    private class SunnyDaysPredicate implements Predicate<HourlyInfo> {
-        @Override
-        public boolean test(HourlyInfo hourlyInfo) {
-            return "Sunny".equals(hourlyInfo.getDescription());
-        }
+
+    @Test
+    public void filterWarmDays() throws Exception {
+        // Arrange
+
+        // Act
+        final Collection<String> filteredSunnyDays = weatherQueries.filterHourlyInfo(hourlyInfos.iterator(), new Predicate<HourlyInfo>() {
+            @Override
+            public boolean test(HourlyInfo hourlyInfo) {
+                return hourlyInfo.getTempC() > 20;
+            }
+        });
+
+        // Assert
+        assertEquals(1, filteredSunnyDays.size());
+
+
     }
+
 }
