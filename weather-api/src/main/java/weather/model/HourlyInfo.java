@@ -70,6 +70,33 @@ public class HourlyInfo {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        HourlyInfo that = (HourlyInfo) o;
+
+        if (tempC != that.tempC) return false;
+        if (Double.compare(that.precipMM, precipMM) != 0) return false;
+        if (feelsLikeC != that.feelsLikeC) return false;
+        if (date != null ? !date.equals(that.date) : that.date != null) return false;
+        return description != null ? description.equals(that.description) : that.description == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = date != null ? date.hashCode() : 0;
+        result = 31 * result + tempC;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        temp = Double.doubleToLongBits(precipMM);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + feelsLikeC;
+        return result;
+    }
+
     /**
      * Hourly information follows below the day according to the format of
      * /past weather resource of the World Weather Online API

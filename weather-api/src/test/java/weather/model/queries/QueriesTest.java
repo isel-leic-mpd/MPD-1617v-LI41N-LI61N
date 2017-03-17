@@ -1,23 +1,22 @@
 package weather.model.queries;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import util.queries.Queries;
 import weather.model.HourlyInfo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 import static org.junit.Assert.*;
 
 /**
  * Created by lfalcao on 15/03/2017.
  */
-public class WeatherQueriesTest {
+public class QueriesTest {
     final static Collection<HourlyInfo> hourlyInfos = new ArrayList<>(5);;
-    final static WeatherQueries weatherQueries = new WeatherQueries();
+    final static Queries<HourlyInfo> QUERIES = new Queries<>();
 
 
     @BeforeClass
@@ -34,12 +33,20 @@ public class WeatherQueriesTest {
         // Arrange
 
         // Act
-        final Collection<String> filteredSunnyDays = weatherQueries.filterHourlyInfo(hourlyInfos.iterator(),
+        final Collection<HourlyInfo> filteredSunnyDays = QUERIES.filter(hourlyInfos,
                 hourlyInfo -> "Sunny".equals(hourlyInfo.getDescription())
         );
 
+        final Collection<HourlyInfo> distinct = QUERIES.distinct(filteredSunnyDays);
+
+        final Collection<String> mapped = QUERIES.map(distinct,
+                (hi) -> hi.getDate().toString()
+        );
+
+
+
         // Assert
-        assertEquals(1, filteredSunnyDays.size());
+        assertEquals(1, mapped.size());
 
 
     }
@@ -50,7 +57,7 @@ public class WeatherQueriesTest {
         // Arrange
 
         // Act
-        final Collection<String> filteredSunnyDays = weatherQueries.filterHourlyInfo(hourlyInfos.iterator(), new Predicate<HourlyInfo>() {
+        final Collection<HourlyInfo> filteredSunnyDays = QUERIES.filter(hourlyInfos, new Predicate<HourlyInfo>() {
             @Override
             public boolean test(HourlyInfo hourlyInfo) {
                 return hourlyInfo.getTempC() > 20;
