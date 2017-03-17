@@ -15,7 +15,8 @@ import static org.junit.Assert.*;
  * Created by lfalcao on 15/03/2017.
  */
 public class QueriesTest {
-    final static Collection<HourlyInfo> hourlyInfos = new ArrayList<>(5);;
+    final static Collection<HourlyInfo> hourlyInfos = new ArrayList<>(5);
+    ;
     final static Queries<HourlyInfo> QUERIES = new Queries<>();
 
 
@@ -33,16 +34,11 @@ public class QueriesTest {
         // Arrange
 
         // Act
-        final Collection<HourlyInfo> filteredSunnyDays = QUERIES.filter(hourlyInfos,
+
+        final Collection<String> mapped = QUERIES.map(QUERIES.distinct(QUERIES.filter(hourlyInfos,
                 hourlyInfo -> "Sunny".equals(hourlyInfo.getDescription())
+                )), (hi) -> hi.getDate().toString()
         );
-
-        final Collection<HourlyInfo> distinct = QUERIES.distinct(filteredSunnyDays);
-
-        final Collection<String> mapped = QUERIES.map(distinct,
-                (hi) -> hi.getDate().toString()
-        );
-
 
 
         // Assert
