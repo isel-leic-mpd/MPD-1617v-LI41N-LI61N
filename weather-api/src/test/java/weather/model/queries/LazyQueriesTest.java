@@ -2,21 +2,20 @@ package weather.model.queries;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import util.queries.Queries;
+import util.queries.EagerQueries;
+import util.queries.LazyQueries;
 import weather.model.HourlyInfo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by lfalcao on 15/03/2017.
  */
-public class QueriesTest {
-    final static Collection<HourlyInfo> hourlyInfos = new ArrayList<>(5);;
-    final static Queries<HourlyInfo> QUERIES = Queries.query(hourlyInfos);
+public class LazyQueriesTest {
+    final static Collection<HourlyInfo> hourlyInfos = new ArrayList<>(5);
+    final static EagerQueries<HourlyInfo> EAGER_QUERIES = EagerQueries.query(hourlyInfos);
 
 
     @BeforeClass
@@ -24,7 +23,8 @@ public class QueriesTest {
         hourlyInfos.add(new HourlyInfo(LocalDate.of(2017, 03, 15), 0, "Sunny", 0, 0));
         hourlyInfos.add(new HourlyInfo(LocalDate.of(2017, 03, 15), 0, "Dia Glorioso", 0, 0));
         hourlyInfos.add(new HourlyInfo(LocalDate.of(2017, 03, 16), 0, "Dia Glorioso", 0, 0));
-        hourlyInfos.add(new HourlyInfo(LocalDate.of(2017, 03, 15), 0, "Sunny", 0, 0));
+        hourlyInfos.add(new HourlyInfo(LocalDate.of(2017, 03, 16), 0, "Sunny", 0, 0));
+        hourlyInfos.add(new HourlyInfo(LocalDate.of(2017, 03, 17), 0, "Sunny", 0, 0));
     }
 
 
@@ -33,13 +33,16 @@ public class QueriesTest {
         // Arrange
 
         // Act
-        final Queries<HourlyInfo> query = Queries.query(hourlyInfos);
+        final LazyQueries<HourlyInfo> query = LazyQueries.query(hourlyInfos);
 
-        final Queries<String> filteredSunnyDays =
+        final LazyQueries<String> filteredSunnyDays =
                 query
                     .filter(sunnyDaysPredicate())
-                    .distinct()
-                    .map((hi) -> hi.getDate().toString());
+                    //.distinct()
+                    .map((hi) -> hi.getDate().toString())
+                    .skip(1)
+                    .limit(1)
+        ;
 
 
 //        System.out.println("All");
@@ -47,14 +50,8 @@ public class QueriesTest {
         System.out.println("Filtered");
         filteredSunnyDays.forEach((hi) -> System.out.println(hi));
 
-
-
-
-
         // Assert
         //assertEquals(1, mapped.size());
-
-
     }
 
     private Predicate<HourlyInfo> sunnyDaysPredicate() {
@@ -67,7 +64,7 @@ public class QueriesTest {
 //        // Arrange
 //
 //        // Act
-//        final Collection<HourlyInfo> filteredSunnyDays = QUERIES.filter(hourlyInfos, new Predicate<HourlyInfo>() {
+//        final Collection<HourlyInfo> filteredSunnyDays = EAGER_QUERIES.filter(hourlyInfos, new Predicate<HourlyInfo>() {
 //            @Override
 //            public boolean test(HourlyInfo hourlyInfo) {
 //                return hourlyInfo.getTempC() > 20;

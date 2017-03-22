@@ -15,7 +15,7 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'mpd'
+rootProject.name = 'mpd-1617v-li41n-li61n'
 include 'app'
 include 'aula2017-03-03'
 include 'weather-api'

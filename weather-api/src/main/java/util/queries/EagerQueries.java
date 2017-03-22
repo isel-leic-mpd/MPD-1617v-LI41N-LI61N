@@ -11,11 +11,11 @@ import java.util.function.Function;
 /**
  * Class that contains methods to make queries in past weather data
  */
-public class Queries<T> implements Iterable<T> {
+public class EagerQueries<T> implements Iterable<T> {
 
     private Iterable<T> data;
 
-    private Queries(Iterable<T> data) {
+    private EagerQueries(Iterable<T> data) {
         this.data = data;
     }
 
@@ -24,7 +24,7 @@ public class Queries<T> implements Iterable<T> {
      * @param pred the {@link Predicate} to apply to each member
      * @return The collection with the filtered object (the ones that passed the predicate filter)
      */
-    public Queries<T> filter(Predicate<T> pred) {
+    public EagerQueries<T> filter(Predicate<T> pred) {
         final Collection<T> ret = new ArrayList<>();
 
         for(T curr : data) {
@@ -33,31 +33,53 @@ public class Queries<T> implements Iterable<T> {
             }
         }
 
-        return new Queries<T>(ret);
+        return new EagerQueries<T>(ret);
     }
 
-    public Queries<T> distinct() {
+    public EagerQueries<T> distinct() {
         return distinct((o1, o2) -> o1.equals(o2));
     }
 
-    public Queries<T> distinct(BiPredicate<T, T> equal) {
+    public EagerQueries<T> distinct(BiPredicate<T, T> equal) {
         final Collection<T> ret = new ArrayList<>();
         for(T curr : data) {
             if(!contains(ret, curr, equal)) {
                 ret.add(curr);
             }
         }
-        return new Queries(ret);
+        return new EagerQueries(ret);
     }
 
 
-    public <U> Queries<U> map(Function<T, U> mapper) {
+    public <U> EagerQueries<U> map(Function<T, U> mapper) {
         final Collection<U> ret = new ArrayList<>();
         for(T curr : data) {
             ret.add(mapper.apply(curr));
         }
-        return new Queries<U>(ret);
+        return new EagerQueries<U>(ret);
     }
+
+    public EagerQueries<T> skip(int n) {
+        final Collection<T> ret = new ArrayList<>();
+        Iterator<T> iterator = data.iterator();
+        while(n-- > 0 && iterator.hasNext())
+            iterator.next();
+        while (iterator.hasNext()) {
+            ret.add(iterator.next());
+        }
+        return new EagerQueries<T>(ret);
+    }
+
+    public EagerQueries<T> limit(int n) {
+        final Collection<T> ret = new ArrayList<>();
+        Iterator<T> iterator = data.iterator();
+        while(n-- > 0 && iterator.hasNext()) {
+            ret.add(iterator.next());
+        }
+        return new EagerQueries<T>(ret);
+    }
+
+
 
     private boolean contains(Collection<T> data, T t, BiPredicate<T, T> comp) {
         for(T curr : data) {
@@ -69,8 +91,8 @@ public class Queries<T> implements Iterable<T> {
     }
 
 
-    public static <T> Queries<T> query(Iterable<T> initialIter) {
-        return new Queries<>(initialIter);
+    public static <T> EagerQueries<T> query(Iterable<T> initialIter) {
+        return new EagerQueries<>(initialIter);
     }
 
     @Override
