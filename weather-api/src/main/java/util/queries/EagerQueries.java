@@ -11,10 +11,8 @@ import java.util.function.Function;
 /**
  * Class that contains methods to make queries in past weather data
  */
-public class EagerQueries<T> implements Iterable<T> {
-
+public class EagerQueries<T> implements  Queries<T>, Iterable<T> {
     private Iterable<T> data;
-
     private EagerQueries(Iterable<T> data) {
         this.data = data;
     }
@@ -91,7 +89,7 @@ public class EagerQueries<T> implements Iterable<T> {
     }
 
 
-    public static <T> EagerQueries<T> query(Iterable<T> initialIter) {
+    public static <T> Queries<T> query(Iterable<T> initialIter) {
         return new EagerQueries<>(initialIter);
     }
 
