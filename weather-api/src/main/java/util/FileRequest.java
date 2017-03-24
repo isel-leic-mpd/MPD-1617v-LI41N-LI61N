@@ -17,14 +17,17 @@
 
 package util;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Instances of this class represent a request to an Uri, served by a file in the file system
  */
 public class FileRequest extends RequestImplBase {
     @Override
-    public Iterable<String> getContent(String path) {
+    protected InputStream getStream(String path) throws IOException {
         String[] parts = path.split("/");
         path = parts[parts.length-1]
                 .replace('?', '-')
@@ -32,10 +35,6 @@ public class FileRequest extends RequestImplBase {
                 .replace('=', '-')
                 .replace(',', '-')
                 .substring(0,68);
-        System.out.println(path);
-        ArrayList<String> res = new ArrayList<>();
-        processStream(path, res);
-        return res;
+        return ClassLoader.getSystemResource(path).openStream();
     }
-
 }

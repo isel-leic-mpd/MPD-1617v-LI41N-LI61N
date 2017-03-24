@@ -1,26 +1,25 @@
 package util;
 
-import java.io.*;
-import java.util.ArrayList;
+import util.queries.StringIteratorFromInputStream;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
 
 /**
  * Created by lfalcao on 10/03/2017.
  */
 public abstract class RequestImplBase implements Request {
 
-    protected void processStream(String path, ArrayList<String> res) {
-        try(InputStream in = ClassLoader.getSystemResource(path).openStream()) {
-            /*
-             * Consumir o Inputstream e adicionar dados ao res
-             */
-            try(BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    res.add(line);
-                }
+    public final Iterable<String> getContent(String path) {
+
+        return () -> {
+            try {
+                return new StringIteratorFromInputStream(getStream(path));
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
             }
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
+        };
     }
+    protected abstract InputStream getStream(String path) throws IOException;
 }

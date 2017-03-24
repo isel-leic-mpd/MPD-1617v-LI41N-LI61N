@@ -18,6 +18,7 @@
 package util;
 
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,23 +28,13 @@ import java.util.List;
  * @author Luís Falcão
  *         created on 08-03-2017
  */
-public class HttpRequest implements Request {
+public class HttpRequest extends RequestImplBase  {
     @Override
-    public Iterable<String> getContent(String path) {
-        List<String> res = new ArrayList<>();
-        try (InputStream in = new URL(path).openStream()) {
-            /*
-             * Consumir o Inputstream e adicionar dados ao res
-             */
-            try(BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    res.add(line);
-                }
-            }
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
+    protected InputStream getStream(String path) throws IOException {
+        try {
+            return new URL(path).openStream();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
         }
-        return res;
     }
 }
