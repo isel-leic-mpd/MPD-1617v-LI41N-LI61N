@@ -15,26 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package util;
-
-import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+package util.request;
 
 /**
- * Instances of this class represent a request to an Uri, making an HTTP RequestImplBase
- * @author Luís Falcão
- *         created on 08-03-2017
+ * Interface that represent the request to a path content.
  */
-public class HttpRequest extends RequestImplBase  {
-    @Override
-    protected InputStream getStream(String path) throws IOException {
-        try {
-            return new URL(path).openStream();
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+public interface Request {
+    Iterable<String> getContent(String path);
 }

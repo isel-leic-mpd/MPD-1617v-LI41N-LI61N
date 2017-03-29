@@ -15,11 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package util;
+package util.request;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
- * Interface that represent the request to a path content.
+ * Instances of this class represent a request to an Uri, served by a file in the file system
  */
-public interface Request {
-    Iterable<String> getContent(String path);
+public class FileRequest extends RequestImplBase {
+    @Override
+    protected InputStream getStream(String path) throws IOException {
+        System.out.println("FileRequest.getStream");
+        return Requests.file(path);
+    }
+
+
 }

@@ -18,7 +18,7 @@
 package weather;
 
 import com.sun.istack.internal.NotNull;
-import util.Request;
+import util.request.Request;
 import weather.model.HourlyInfo;
 import weather.model.Location;
 
@@ -34,7 +34,7 @@ import java.util.Objects;
  * @author Luís Falcão
  *         created on 07-03-2017
  */
-public class WeatherWebApi {
+public class WeatherApi {
 
     private static final String WEATHER_TOKEN;
     private static final String WEATHER_HOST = "http://api.worldweatheronline.com";
@@ -61,7 +61,7 @@ public class WeatherWebApi {
 
     private final Request req;
 
-    public WeatherWebApi(@NotNull Request req) {
+    public WeatherApi(@NotNull Request req) {
         Objects.requireNonNull(req, "You must provide a non null Request");
 
         this.req = req;

@@ -15,26 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package util;
+package util.request;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
- * Instances of this class represent a request to an Uri, served by a file in the file system
+ * Instances of this class represent a request to an Uri, making an HTTP RequestImplBase
+ * @author Luís Falcão
+ *         created on 08-03-2017
  */
-public class FileRequest extends RequestImplBase {
+public class HttpRequest extends RequestImplBase  {
     @Override
     protected InputStream getStream(String path) throws IOException {
-        String[] parts = path.split("/");
-        path = parts[parts.length-1]
-                .replace('?', '-')
-                .replace('&', '-')
-                .replace('=', '-')
-                .replace(',', '-')
-                .substring(0,68);
-        return ClassLoader.getSystemResource(path).openStream();
+        System.out.println("HttpRequest.getStream");
+        return Requests.http(path);
     }
 }

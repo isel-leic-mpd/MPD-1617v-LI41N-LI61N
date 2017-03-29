@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import util.request.DynamicRequest;
-import util.request.FileRequest;
-import util.request.Request;
-import util.request.Requests;
+import util.request.*;
 import weather.WeatherApi;
 import weather.model.HourlyInfo;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
 import static java.lang.System.out;
 
@@ -30,28 +30,27 @@ import static java.lang.System.out;
 /**
  * Main entry point to be used as an application tester for the libraries produced in each class.
  */
-public class App {
+public class DynamicRequestApp {
+    private static Map<String, Supplier<Request>> requestTypes = new HashMap<>();
+
+    static {
+        requestTypes.put("http", HttpRequest::new);
+        requestTypes.put("file", FileRequest::new);
+
+    }
+
     public static void main(String[] args) {
-        Request freq = new FileRequest(); // new HttpRequest();
+        if(args.length != 1) {
+            System.out.println("Invalid usage: java DynamicRequestApp [file|http]");
+            return;
+        }
 
+        String requestType = args[0];
 
-        DynamicRequest req = new DynamicRequest(Requests::file);
-
-        WeatherApi api = new WeatherApi(req);
+        WeatherApi api = new WeatherApi(requestTypes.get(requestType).get());
 
         Iterable<HourlyInfo> infos = api.pastWeather(41.15, -8.6167, LocalDate.of(2017,02,01),LocalDate.of(2017,02,28));
         infos.forEach(out::println);
-
-
-        req.setStreamer(str -> Requests.http(str));
-
-        infos = api.pastWeather(41.15, -8.6167, LocalDate.of(2017,02,01),LocalDate.of(2017,02,28));
-        infos.forEach(out::println);
-        /* <=>
-        for (HourlyInfo line: data) {
-            out.println(line);
-        }
-        */
 
     }
 }

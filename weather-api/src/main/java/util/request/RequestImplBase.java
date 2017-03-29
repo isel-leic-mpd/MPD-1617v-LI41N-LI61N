@@ -1,4 +1,4 @@
-package util;
+package util.request;
 
 import util.queries.StringIteratorFromInputStream;
 
