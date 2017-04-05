@@ -23,7 +23,6 @@ public class Requests {
     }
 
     public static InputStream file(String path)  {
-        System.out.println("file request");
         String[] parts = path.split("/");
         path = parts[parts.length-1]
                 .replace('?', '-')

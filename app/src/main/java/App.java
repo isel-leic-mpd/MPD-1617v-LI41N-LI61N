@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import com.sun.tools.internal.ws.wsdl.document.Input;
+import util.queries.StringIteratorFromInputStream;
 import util.request.DynamicRequest;
 import util.request.FileRequest;
 import util.request.Request;
@@ -22,9 +24,13 @@ import util.request.Requests;
 import weather.WeatherApi;
 import weather.model.HourlyInfo;
 
+import java.io.InputStream;
 import java.time.LocalDate;
+import java.util.function.Function;
 
 import static java.lang.System.out;
+import static util.queries.Functions.andThen;
+import static util.queries.Functions.decorate;
 
 
 /**
@@ -34,8 +40,10 @@ public class App {
     public static void main(String[] args) {
         Request freq = new FileRequest(); // new HttpRequest();
 
+        Function <String, InputStream> requestHandler = Requests::file;
+        DynamicRequest req = new DynamicRequest(andThen(decorate(Requests::file, App::showMessage), u -> u));
 
-        DynamicRequest req = new DynamicRequest(Requests::file);
+
 
         WeatherApi api = new WeatherApi(req);
 
@@ -43,7 +51,7 @@ public class App {
         infos.forEach(out::println);
 
 
-        req.setStreamer(str -> Requests.http(str));
+        req.setStreamer(Requests::http);
 
         infos = api.pastWeather(41.15, -8.6167, LocalDate.of(2017,02,01),LocalDate.of(2017,02,28));
         infos.forEach(out::println);
@@ -53,5 +61,9 @@ public class App {
         }
         */
 
+    }
+
+    private static void showMessage(String str) {
+        System.out.println("Request for file " + str);
     }
 }
