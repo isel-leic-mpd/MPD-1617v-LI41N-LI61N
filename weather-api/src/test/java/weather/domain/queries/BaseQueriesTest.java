@@ -1,11 +1,10 @@
-package weather.model.queries;
+package weather.domain.queries;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import util.queries.LazyQueries;
 import util.queries.Queries;
-import weather.model.HourlyInfo;
+import weather.domain.HourlyInfo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

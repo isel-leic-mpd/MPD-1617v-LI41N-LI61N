@@ -15,12 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package weather;
+package weather.data;
 
 import com.sun.istack.internal.NotNull;
 import util.request.Request;
-import weather.model.HourlyInfo;
-import weather.model.Location;
+import weather.data.dto.DailyInfoDto;
+import weather.data.dto.HourlyInfoDto;
+import weather.data.dto.LocationDto;
+import weather.domain.DailyInfo;
+import weather.domain.HourlyInfo;
 
 import java.io.*;
 import java.net.URL;
@@ -34,13 +37,14 @@ import java.util.Objects;
  * @author Luís Falcão
  *         created on 07-03-2017
  */
-public class WeatherApi {
+public class WeatherApiImpl implements WeatherApi {
 
     private static final String WEATHER_TOKEN;
     private static final String WEATHER_HOST = "http://api.worldweatheronline.com";
     private static final String WEATHER_PAST = "/free/v2/past-weather.ashx";
     private static final String WEATHER_PAST_ARGS =
             "?q=%s&date=%s&enddate=%s&tp=24&format=csv&key=%s";
+    private static final int DAILY_INFO_PARTS = 9;
 
     static {
         try {
@@ -61,25 +65,20 @@ public class WeatherApi {
 
     private final Request req;
 
-    public WeatherApi(@NotNull Request req) {
+    public WeatherApiImpl(@NotNull Request req) {
         Objects.requireNonNull(req, "You must provide a non null Request");
 
         this.req = req;
     }
 
 
-    /**
-     * E.g. http://api.worldweatheronline.com/free/v2/search.ashx?query=oporto&format=tab&key=*****
-     */
 
-    public Iterable<Location> search(String query) {
-        return null;
-    }
 
     /**
      * E.g. http://api.worldweatheronline.com/free/v2/search.ashx?query=oporto&format=tab&key=*****
      */
-    public Iterable<HourlyInfo> pastWeather(
+    @Override
+    public Iterable<DailyInfoDto> pastWeather(
             double lat,
             double log,
             LocalDate from,
@@ -90,20 +89,38 @@ public class WeatherApi {
 
         Iterator<String> iter = req.getContent(path).iterator(); // Get the content
 
-        List<HourlyInfo> res = createHourlyInfoInstances(iter);
+        List<DailyInfoDto> res = createDailyInfoDtoInstances(iter);
         return res;
     }
 
-    private List<HourlyInfo> createHourlyInfoInstances(Iterator<String> iter) {
+    @Override
+    public Iterable<DailyInfoDto> getDailyInfo(String location) {
+        return null;
+    }
+
+    @Override
+    public LocationDto getLocation(String locationName) {
+        return null;
+    }
+
+    private List<DailyInfoDto> createDailyInfoDtoInstances(Iterator<String> iter) {
         while(iter.next().startsWith("#")) { }
         iter.next(); // Skip line: Not Available
-        List<HourlyInfo> res = new ArrayList<>();
+        List<DailyInfoDto> res = new ArrayList<>();
         while(iter.hasNext()) {
-            String line = iter.next(); // Skip Daily Info
-            res.add(HourlyInfo.valueOf(line));
+            String line = iter.next();
+            final String[] csvParts = line.split(",");
+            if(csvParts.length == DAILY_INFO_PARTS)
+                createDailyInfoDto(csvParts);
+
+            res.add(DailyInfoDto.valueOf(line));
             if(iter.hasNext()) iter.next();
         }
         return res;
+    }
+
+    private void createDailyInfoDto(String[] csvParts) {
+
     }
 
     private String createUri(double lat, double log, LocalDate from, LocalDate to) {

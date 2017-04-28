@@ -15,7 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package weather.model;
+package weather.domain;
+
+import java.time.LocalDate;
+import java.util.Iterator;
+import java.util.function.Supplier;
 
 /**
  * @author Luís Falcão
@@ -26,13 +30,16 @@ public class Location {
     private final String region;
     private final double latitude;
     private final double longitude;
+    private Supplier<Iterable<DailyInfo>> dailyInfosSup;
 
-    public Location(String country, String region, double latitude, double longitude) {
+    public Location(String country, String region, double latitude, double longitude, Supplier<Iterable<DailyInfo>> dailyInfosSup) {
         this.country = country;
         this.region = region;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.dailyInfosSup = dailyInfosSup;
     }
+
 
     public String getCountry() {
         return country;
@@ -50,12 +57,12 @@ public class Location {
         return longitude;
     }
 
-    public static Location valueOf(String line) {
-        String[] data = line.split("\t");
-        return new Location(
-                data[1],
-                data[2],
-                Double.parseDouble(data[3]),
-                Double.parseDouble(data[4]));
+    public Iterable<DailyInfo> getDailyInfos() {
+        return dailyInfosSup.get();
     }
+
+    public Iterable<DailyInfo> getDailyInfos(LocalDate startDate, LocalDate endDate) {
+        return null;
+    }
+
 }

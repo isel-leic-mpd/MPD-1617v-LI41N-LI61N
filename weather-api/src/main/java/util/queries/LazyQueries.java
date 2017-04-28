@@ -4,7 +4,7 @@ import util.queries.queryIterators.FilterIterator;
 import util.queries.queryIterators.LimitIterator;
 import util.queries.queryIterators.MapIterator;
 import util.queries.queryIterators.SkipIterator;
-import weather.model.queries.Predicate;
+import weather.domain.queries.Predicate;
 
 import java.util.Iterator;
 import java.util.function.BiPredicate;

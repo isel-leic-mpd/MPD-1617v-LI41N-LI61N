@@ -1,20 +1,19 @@
-package weather.model;
+package weather.data.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Collection;
 
 /**
  * Created by lfalcao on 08/03/2017.
  */
-public class DailyInfo {
+public class DailyInfoDto {
     private final LocalDate date;
     private final int minTempC;
     private final int maxTemC;
     private final LocalTime sunset;
     private final LocalTime sunrise;
 
-    public DailyInfo(LocalDate date, int minTempC, int maxTemC, LocalTime sunset, LocalTime sunrise) {
+    public DailyInfoDto(LocalDate date, int minTempC, int maxTemC, LocalTime sunset, LocalTime sunrise) {
         this.date = date;
         this.minTempC = minTempC;
         this.maxTemC = maxTemC;
@@ -43,8 +42,7 @@ public class DailyInfo {
     }
 
 
-    public Iterable<HourlyInfo> getHourlyInfo() {
-        // TODO
-        throw new UnsupportedOperationException();
+    public static DailyInfoDto valueOf(String line) {
+        return null;
     }
 }

@@ -1,9 +1,9 @@
-package weather.model.queries;
+package weather.domain.queries;
 
 import util.queries.EagerQueries;
 import util.queries.Queries;
 import util.queries.queryIterators.LoggerIterator;
-import weather.model.HourlyInfo;
+import weather.domain.HourlyInfo;
 
 /**
  * Created by lfalcao on 15/03/2017.

@@ -15,4 +15,4 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'aula2017-03-08-weather-api'
+rootProject.name = 'weather-api'

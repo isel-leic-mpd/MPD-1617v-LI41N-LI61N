@@ -1,6 +1,6 @@
 package util.queries;
 
-import weather.model.queries.Predicate;
+import weather.domain.queries.Predicate;
 
 import java.util.function.BiPredicate;
 import java.util.function.Function;

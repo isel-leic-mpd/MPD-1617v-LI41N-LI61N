@@ -1,4 +1,4 @@
-package weather.model.queries;
+package weather.domain.queries;
 
 /**
  *

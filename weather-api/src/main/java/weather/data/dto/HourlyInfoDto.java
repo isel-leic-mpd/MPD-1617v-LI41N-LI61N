@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package weather.model;
+package weather.data.dto;
 
 import java.time.LocalDate;
 
@@ -23,14 +23,14 @@ import java.time.LocalDate;
  * @author Luís Falcão
  *         created on 01-08-2016
  */
-public class HourlyInfo {
+public class HourlyInfoDto {
     private final LocalDate date;     // index 0
     private final int tempC;          // index 2
     private final String description; // index 10
     private final double  precipMM;   // index 11
     private final int feelsLikeC;     // index 24
 
-    public HourlyInfo(LocalDate date, int tempC, String description, double precipMM, int feelsLikeC) {
+    public HourlyInfoDto(LocalDate date, int tempC, String description, double precipMM, int feelsLikeC) {
         this.date = date;
         this.tempC = tempC;
         this.description = description;
@@ -75,7 +75,7 @@ public class HourlyInfo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        HourlyInfo that = (HourlyInfo) o;
+        HourlyInfoDto that = (HourlyInfoDto) o;
 
         if (tempC != that.tempC) return false;
         if (Double.compare(that.precipMM, precipMM) != 0) return false;
@@ -101,9 +101,9 @@ public class HourlyInfo {
      * Hourly information follows below the day according to the format of
      * /past weather resource of the World Weather Online API
      */
-    public static HourlyInfo valueOf(String line) {
+    public static HourlyInfoDto valueOf(String line) {
         String[] data = line.split(",");
-        return new HourlyInfo(
+        return new HourlyInfoDto(
                 LocalDate.parse(data[0]),
                 Integer.parseInt(data[2]),
                 data[10],

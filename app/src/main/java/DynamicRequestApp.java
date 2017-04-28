@@ -16,8 +16,10 @@
  */
 
 import util.request.*;
-import weather.WeatherApi;
-import weather.model.HourlyInfo;
+import weather.data.WeatherApi;
+import weather.data.WeatherApiImpl;
+import weather.data.dto.DailyInfoDto;
+import weather.domain.HourlyInfo;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -47,9 +49,9 @@ public class DynamicRequestApp {
 
         String requestType = args[0];
 
-        WeatherApi api = new WeatherApi(requestTypes.get(requestType).get());
+        WeatherApi api = new WeatherApiImpl(requestTypes.get(requestType).get());
 
-        Iterable<HourlyInfo> infos = api.pastWeather(41.15, -8.6167, LocalDate.of(2017,02,01),LocalDate.of(2017,02,28));
+        Iterable<DailyInfoDto> infos = api.pastWeather(41.15, -8.6167, LocalDate.of(2017,02,01),LocalDate.of(2017,02,28));
         infos.forEach(out::println);
 
     }

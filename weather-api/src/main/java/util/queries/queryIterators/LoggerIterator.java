@@ -1,8 +1,5 @@
 package util.queries.queryIterators;
 
-import weather.model.HourlyInfo;
-
-import java.util.Collection;
 import java.util.Iterator;
 
 /**
