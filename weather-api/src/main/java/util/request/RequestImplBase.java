@@ -1,6 +1,7 @@
 package util.request;
 
-import util.queries.StringIteratorFromInputStream;
+
+import queries.StringIteratorFromInputStream;
 
 import java.io.IOException;
 import java.io.InputStream;

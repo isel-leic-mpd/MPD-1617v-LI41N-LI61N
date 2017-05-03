@@ -1,4 +1,4 @@
-package util.queries;
+package queries;
 
 import java.io.BufferedReader;
 import java.io.IOException;

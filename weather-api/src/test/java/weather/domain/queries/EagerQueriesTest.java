@@ -1,8 +1,8 @@
 package weather.domain.queries;
 
-import util.queries.EagerQueries;
-import util.queries.Queries;
-import util.queries.queryIterators.LoggerIterator;
+import queries.EagerQueries;
+import queries.Queries;
+import queries.iterable.queryIterators.LoggerIterator;
 import weather.domain.HourlyInfo;
 
 /**

@@ -1,7 +1,3 @@
-package util;
-
-import util.queries.Functions;
-
 import java.util.Comparator;
 import java.util.function.Function;
 

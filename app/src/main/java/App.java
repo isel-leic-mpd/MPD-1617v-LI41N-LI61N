@@ -22,16 +22,14 @@ import util.request.Requests;
 import weather.data.WeatherApi;
 import weather.data.WeatherApiImpl;
 import weather.data.dto.DailyInfoDto;
-import weather.domain.DailyInfo;
-import weather.domain.HourlyInfo;
 
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.function.Function;
 
 import static java.lang.System.out;
-import static util.queries.Functions.andThen;
-import static util.queries.Functions.decorate;
+import static queries.Functions.andThen;
+import static queries.Functions.decorate;
 
 
 /**

@@ -1,4 +1,4 @@
-package util;
+package defaultmethods;
 
 /**
  * Created by lfalcao on 26/04/2017.

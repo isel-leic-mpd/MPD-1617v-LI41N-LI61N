@@ -1,6 +1,5 @@
-package util.queries;
+package queries;
 
-import weather.domain.queries.Predicate;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,7 +10,7 @@ import java.util.function.Function;
 /**
  * Class that contains methods to make queries in past weather data
  */
-public class EagerQueries<T> implements  Queries<T>, Iterable<T> {
+public class EagerQueries<T> implements Queries<T>, Iterable<T> {
     private Iterable<T> data;
     private EagerQueries(Iterable<T> data) {
         this.data = data;

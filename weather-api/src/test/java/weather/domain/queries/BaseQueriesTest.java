@@ -3,7 +3,8 @@ package weather.domain.queries;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import util.queries.Queries;
+import queries.Predicate;
+import queries.Queries;
 import weather.domain.HourlyInfo;
 
 import java.time.LocalDate;

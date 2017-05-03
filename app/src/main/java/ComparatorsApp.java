@@ -1,11 +1,8 @@
-import util.Comparators;
 import weather.domain.DailyInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static util.Comparators.comparing;
-import static util.Comparators.comparingBy;
 
 /**
  * Created by lfalcao on 26/04/2017.
@@ -16,10 +13,10 @@ public class ComparatorsApp {
         List<DailyInfo> dailyInfos  = new ArrayList<>();
 
         dailyInfos.sort((di1, d12) -> di1.getDate().compareTo(d12.getDate()) );
-        dailyInfos.sort(comparing(DailyInfo::getDate).thenComparing(DailyInfo::getSunset));
+        dailyInfos.sort(Comparators.comparing(DailyInfo::getDate).thenComparing(DailyInfo::getSunset));
 
         final Comparators.ComparatorBy<DailyInfo> cmp1 =
-                comparingBy(DailyInfo::getDate)
+                Comparators.comparingBy(DailyInfo::getDate)
                  .thenComparingLambda(DailyInfo::getSunset);
 
         final Comparators.ComparatorBy<DailyInfo> cmp2 =

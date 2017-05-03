@@ -1,6 +1,7 @@
-package util.queries.queryIterators;
+package queries.iterable.queryIterators;
 
-import weather.domain.queries.Predicate;
+
+import queries.Predicate;
 
 import java.util.Iterator;
 

@@ -1,10 +1,10 @@
-package util.queries;
+package queries;
 
-import util.queries.queryIterators.FilterIterator;
-import util.queries.queryIterators.LimitIterator;
-import util.queries.queryIterators.MapIterator;
-import util.queries.queryIterators.SkipIterator;
-import weather.domain.queries.Predicate;
+
+import queries.iterable.queryIterators.FilterIterator;
+import queries.iterable.queryIterators.LimitIterator;
+import queries.iterable.queryIterators.MapIterator;
+import queries.iterable.queryIterators.SkipIterator;
 
 import java.util.Iterator;
 import java.util.function.BiPredicate;
