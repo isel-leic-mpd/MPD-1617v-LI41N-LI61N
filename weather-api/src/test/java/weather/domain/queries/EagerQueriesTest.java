@@ -1,8 +1,8 @@
 package weather.domain.queries;
 
-import queries.EagerQueries;
 import queries.Queries;
 import queries.iterable.queryIterators.LoggerIterator;
+import queries.iterable.Queries;
 import weather.domain.HourlyInfo;
 
 /**
@@ -11,6 +11,6 @@ import weather.domain.HourlyInfo;
 public class EagerQueriesTest extends BaseQueriesTest {
     @Override
     protected Queries<HourlyInfo> getQueries() {
-        return EagerQueries.query(() -> new LoggerIterator(hourlyInfos.iterator()));
+        return Queries.EagerQueries.query(() -> new LoggerIterator(hourlyInfos.iterator()));
     }
 }

@@ -3,8 +3,8 @@ package weather.domain.queries;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import queries.Predicate;
 import queries.Queries;
+import queries.iterable.Queries;
 import weather.domain.HourlyInfo;
 
 import java.time.LocalDate;
@@ -62,7 +62,7 @@ public abstract class BaseQueriesTest {
         //assertEquals(1, mapped.size());
     }
 
-    private Predicate<HourlyInfo> sunnyDaysPredicate() {
+    private Queries.Predicate<HourlyInfo> sunnyDaysPredicate() {
         return hourlyInfo -> "Sunny".equals(hourlyInfo.getDescription());
     }
 

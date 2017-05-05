@@ -1,7 +1,7 @@
 package queries.iterable.queryIterators;
 
 
-import queries.Predicate;
+import queries.iterable.Queries;
 
 import java.util.Iterator;
 
@@ -10,9 +10,9 @@ import java.util.Iterator;
  */
 public class FilterIterator<T> extends BaseIterator<T> {
     private final Iterator<T> previous;
-    private final Predicate<T> pred;
+    private final Queries.Predicate<T> pred;
 
-    public FilterIterator(Iterator<T> previous, Predicate<T> pred) {
+    public FilterIterator(Iterator<T> previous, Queries.Predicate<T> pred) {
         this.previous = previous;
         this.pred = pred;
 

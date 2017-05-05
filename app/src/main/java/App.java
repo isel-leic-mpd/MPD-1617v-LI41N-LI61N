@@ -28,8 +28,8 @@ import java.time.LocalDate;
 import java.util.function.Function;
 
 import static java.lang.System.out;
-import static queries.Functions.andThen;
-import static queries.Functions.decorate;
+import static queries.iterable.Queries.Functions.andThen;
+import static queries.iterable.Queries.Functions.decorate;
 
 
 /**

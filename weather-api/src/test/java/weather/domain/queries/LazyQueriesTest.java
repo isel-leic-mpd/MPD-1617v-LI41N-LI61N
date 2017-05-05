@@ -1,8 +1,8 @@
 package weather.domain.queries;
 
-import queries.LazyQueries;
 import queries.Queries;
 import queries.iterable.queryIterators.LoggerIterator;
+import queries.iterable.Queries;
 import weather.domain.HourlyInfo;
 
 /**
@@ -11,6 +11,6 @@ import weather.domain.HourlyInfo;
 public class LazyQueriesTest extends BaseQueriesTest {
     @Override
     protected Queries<HourlyInfo> getQueries() {
-        return LazyQueries.query(() -> new LoggerIterator(hourlyInfos.iterator()));
+        return Queries.LazyQueries.query(() -> new LoggerIterator(hourlyInfos.iterator()));
     }
 }

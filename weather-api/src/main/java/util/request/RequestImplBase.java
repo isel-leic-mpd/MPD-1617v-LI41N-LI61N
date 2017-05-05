@@ -1,7 +1,7 @@
 package util.request;
 
 
-import queries.StringIteratorFromInputStream;
+import queries.iterable.Queries;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +16,7 @@ public abstract class RequestImplBase implements Request {
 
         return () -> {
             try {
-                return new StringIteratorFromInputStream(getStream(path));
+                return new Queries.StringIteratorFromInputStream(getStream(path));
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
             }
