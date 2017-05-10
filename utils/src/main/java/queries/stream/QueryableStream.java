@@ -53,6 +53,7 @@ public interface QueryableStream<T> extends Advancer<T> {
 
     default QueryableStream<T> skip(int n) {
 //        QueryableStream<T> prev = this;
+
 //        return new QueryableStream<T>() {
 //            private boolean skipped = false;
 //            @Override
@@ -113,10 +114,11 @@ public interface QueryableStream<T> extends Advancer<T> {
 
 
     default boolean filterWithPredicate(Predicate<T> pred, Consumer<T> action) {
-        boolean [] found = {false};
-        while(tryAdvance(t -> { if(found[0] = pred.test(t)) action.accept(t);  })
-                && !found[0]);
-        return found[0];
+        RefBoolean found = new RefBoolean(false);
+        //boolean [] found = {false};
+        while(tryAdvance(t -> { if(found.setVal(pred.test(t))) action.accept(t);  })
+                && !found.getVal());
+        return found.getVal();
     }
 
 
@@ -138,4 +140,39 @@ public interface QueryableStream<T> extends Advancer<T> {
         }
     }
 
+    class Ref<T> {
+        private T val;
+
+        public Ref(T val) {
+
+            this.val = val;
+        }
+
+        public T getVal() {
+            return val;
+        }
+
+        public T setVal(T val) {
+            this.val = val;
+            return val;
+        }
+    }
+
+    class RefBoolean {
+        private boolean val;
+
+        public RefBoolean(boolean val) {
+
+            this.val = val;
+        }
+
+        public boolean getVal() {
+            return val;
+        }
+
+        public boolean setVal(boolean val) {
+            this.val = val;
+            return val;
+        }
+    }
 }
