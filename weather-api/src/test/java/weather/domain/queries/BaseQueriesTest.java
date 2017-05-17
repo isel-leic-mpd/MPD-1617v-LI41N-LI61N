@@ -3,7 +3,6 @@ package weather.domain.queries;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import queries.Queries;
 import queries.iterable.Queries;
 import weather.domain.HourlyInfo;
 
