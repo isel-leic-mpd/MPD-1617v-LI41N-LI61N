@@ -2,6 +2,7 @@ import org.junit.Test;
 import queries.stream.QueryableStream;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -148,7 +149,7 @@ public class StreamTests {
 
     @Test
     public void groupingByUsage() throws Exception {
-        Map<Character, Map<Integer, Long>> map = getLoremIpsumStream().
+        Map<Character, Map<Integer, Long>> map = getStream().
                 collect(groupingBy(
                         s -> s.toLowerCase().charAt(0),
                         groupingBy(
@@ -161,10 +162,37 @@ public class StreamTests {
     }
 
 
+    @Test
+    public void obtainCharHistogram() throws Exception {
+            Map<Character, Long> map =
+                    getStream().
+                    flatMap(s -> s.chars().boxed())
+                    .map(i -> (char)i.intValue())
+                    .collect(
+                            groupingBy(
+                                    Character::toLowerCase,
+                                    TreeMap::new,
+                                    counting()
+                            )
+                    )
+                ;
+        System.out.println(map.toString());
+    }
+
+
+    @Test
+    public void streamFlatMapBugRevealed() throws Exception {
+        IntStream.range(0, 3)
+                .flatMap(i -> IntStream.generate(() -> 36))
+                .limit(3)
+                .forEach(System.out::println);
+    }
+
+
 
 
     private Stream<String> getStream() {
-        return Stream.of("Sport", "Lisboa", "e", "Benfica", "Rumo", "ao", "36");
+        return Stream.of("Sport", "Lisboa", "e", "Benfica", "Rumo", "ao", "37", "uma", "vez", "que", "o", "36", "já", "cá", "mora", "!");
 
     }
 

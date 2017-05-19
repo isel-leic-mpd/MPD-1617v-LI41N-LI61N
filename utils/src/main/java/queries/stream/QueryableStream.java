@@ -11,6 +11,9 @@ import java.util.function.Predicate;
  * Created by lfalcao on 03/05/2017.
  */
 public interface QueryableStream<T> extends Advancer<T> {
+
+    QueryableStream EMPTY_QUERYABLE_STREAM = (action) -> false;
+
     static <T>QueryableStream<T> of(Iterable<T> base) {
         final Iterator<T> iterator = base.iterator();
         //return new IterableQueryableStream<T>(base);
@@ -49,6 +52,37 @@ public interface QueryableStream<T> extends Advancer<T> {
 
         return action -> this.tryAdvance((t) -> action.accept(mapper.apply(t)));
 
+    }
+
+    default <U> QueryableStream<U> flatMap(Function<T, QueryableStream<U>> mapper) {
+//        QueryableStream<T> self = this;
+
+//        return new QueryableStream<U>() {
+//            QueryableStream<U> currentQs = QueryableStream.empty();
+//
+//            @Override
+//            public boolean tryAdvance(Consumer<U> action) {
+//                while (!currentQs.tryAdvance(action)) {
+//                    if(!self.tryAdvance((t) -> currentQs = mapper.apply(t)))
+//                        return false;
+//                }
+//                return true;
+//            }
+//        };
+
+        final QueryableStream<U> []currentQs =  new QueryableStream[]{ QueryableStream.<U>empty() };
+        return (action -> {
+            while (!currentQs[0].tryAdvance(action)) {
+                    if(!tryAdvance((t) -> currentQs[0] = mapper.apply(t)))
+                        return false;
+                }
+                return true;
+        });
+
+    }
+
+    static <U> QueryableStream<U> empty() {
+        return EMPTY_QUERYABLE_STREAM;
     }
 
     default QueryableStream<T> skip(int n) {
