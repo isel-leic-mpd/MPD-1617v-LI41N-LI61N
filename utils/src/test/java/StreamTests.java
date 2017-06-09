@@ -1,5 +1,7 @@
+import static org.junit.Assert.*;
 import org.junit.Test;
 import queries.stream.QueryableStream;
+import streams.ToListCollector;
 
 import java.util.*;
 import java.util.function.Function;
@@ -186,6 +188,17 @@ public class StreamTests {
                 .flatMap(i -> IntStream.generate(() -> 36))
                 .limit(3)
                 .forEach(System.out::println);
+    }
+
+
+    @Test
+    public void toListCollectorShouldRetutnAList() throws Exception {
+        final List<String> list = getStream()
+                .collect(new ToListCollector<>());
+
+        assertNotNull(list);
+        assertEquals(getStream().count(), list.size());
+
     }
 
 

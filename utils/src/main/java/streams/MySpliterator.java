@@ -1,6 +1,7 @@
 package streams;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Spliterator;
 import java.util.function.Consumer;
@@ -44,12 +45,12 @@ public class MySpliterator<T> implements Spliterator<T> {
         System.out.println("try split called in thread " + Thread.currentThread().getId());
         if(size() > col.size() /2) {
             int middle = start + size()/2;
+            final MySpliterator<T> split = new MySpliterator<>(col, middle, end);
             end = middle;
-            return new MySpliterator<>(col, middle, end);
-
+            return split;
         }
 
-        System.out.println("returning null");
+        System.out.println("returning null in thread " + Thread.currentThread().getId());
         return null;
     }
 
@@ -64,6 +65,15 @@ public class MySpliterator<T> implements Spliterator<T> {
 
     @Override
     public int characteristics() {
-        return 0;
+        System.out.println("characteristics called in thread " + Thread.currentThread().getId());
+        return Spliterator.SORTED;
+        //return SORTED;
     }
+
+    @Override
+    public Comparator<? super T> getComparator() {
+        return null;
+    }
+
+
 }
