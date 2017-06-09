@@ -26,6 +26,6 @@ dependencies {
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 
-    compile project (':utils')
+    compile project (':utils'), 'com.mashape.unirest:unirest-java:1.4.9'
 }
 
