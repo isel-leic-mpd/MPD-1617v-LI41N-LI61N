@@ -14,7 +14,7 @@ public class Discount {
     }
 
     public static String applyDiscount(Quote quote) {
-        return quote.getShopName() + " price is " + Discount.apply(quote.getPrice(), quote.getDiscountCode());
+        return quote.getShopName() + " price is :" + Discount.apply(quote.getPrice(), quote.getDiscountCode());
     }
 
     public static CompletableFuture<Double> applyDiscountAsync(Quote quote) {
