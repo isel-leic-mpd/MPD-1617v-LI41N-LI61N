@@ -25,7 +25,9 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
-
-    compile project (':utils'), 'com.mashape.unirest:unirest-java:1.4.9'
+    
+    compile group: 'org.eclipse.jetty', name: 'jetty-server', version: '9.4.5.v20170502'
+    compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: '9.4.5.v20170502'
+    compile 'org.asynchttpclient:async-http-client:2.0.32'
 }
 

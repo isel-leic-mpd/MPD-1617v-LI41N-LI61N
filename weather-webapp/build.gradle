@@ -20,18 +20,15 @@ repositories {
 }
 
 dependencies {
-    // This dependency is found on compile classpath of this component and consumers.
-    compile 'com.google.guava:guava:20.0'
-    compile project (':aula2017-03-03')
-    compile project (':weather-api')
-    compile project (':utils')
+    compile project(':weather-async')
+    compile group: 'org.slf4j', name: 'slf4j-jdk14', version: '1.7.25'
+    compile group: 'org.eclipse.jetty', name: 'jetty-server', version: '9.4.5.v20170502'
+    compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: '9.4.5.v20170502'
+    
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
-
-    compile 'com.google.code.gson:gson:2.8.0'
-
 }
 
 // Define the main class for the application
-mainClassName = 'App'
+mainClassName = 'weather.app.WeatherWebApp'
 

@@ -1,7 +1,7 @@
 package weather.domain.queries;
 
-import queries.iterable.queryIterators.LoggerIterator;
 import queries.iterable.Queries;
+import queries.iterable.queryIterators.LoggerIterator;
 import weather.domain.HourlyInfo;
 
 /**

@@ -21,5 +21,7 @@ include 'aula2017-03-03'
 include 'weather-api'
 include 'utils'
 include 'shop'
+include 'weather-async'
+include 'weather-webapp'
 
 
